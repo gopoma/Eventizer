@@ -25,6 +25,8 @@ app.set("layout", "./layouts/base");
 // Redefiniendo la ruta de las vistas
 app.set("views", path.join(__dirname, "views"));
 
+app.use(express.urlencoded({extended: true}));
+
 // Utilizando rutas
 auth(app);
 

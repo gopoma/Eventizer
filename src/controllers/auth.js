@@ -1,3 +1,4 @@
+const User = require("../models/User");
 class AuthController {
   getLoginView(req, res) {
     return res.render("login");
@@ -5,9 +6,24 @@ class AuthController {
   getSignUpView(req, res) {
     return res.render("signup");
   }
-  signUp(req, res) {
-    console.log(req.body);
-    return res.end("Registrando a un usuario...");
+  async signUp(req, res) {
+    const newUser = new User(req.body);
+    const validation = newUser.validate();
+
+    if(validation.success) {
+      const userSaved = await newUser.save();
+
+      if(userSaved.success) {
+        return res.json(userSaved.data);
+      } else {
+        validation.success = false;
+        validation.errors = [userSaved.error];
+
+        return res.json(validation);
+      }
+    } else {
+      return res.json(validation);
+    }
   }
 }
 
