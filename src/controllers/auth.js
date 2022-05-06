@@ -3,9 +3,11 @@ class AuthController {
   getLoginView(req, res) {
     return res.render("login");
   }
+
   getSignUpView(req, res) {
     return res.render("signup");
   }
+  
   async signUp(req, res) {
     const newUser = new User(req.body);
     const validation = newUser.validate();
