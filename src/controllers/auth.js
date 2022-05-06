@@ -11,28 +11,26 @@ class AuthController {
     console.log(userData);
 
     if(!credenciales.email || !credenciales.password) {
-      return res.json({
-        validation: {
-          errors: ["Rellena todos los campos"]
-        }
+      return res.render("login", {
+        errors: ["Rellena todos los campos"]
       });
     }
     if(userData.length === 0) {
-      return res.json({
-        validation: {
-          errors: ["Usuario no registrado"]
-        }
+      return res.render("login", {
+        errors: ["Usuario no registrado"]
       });
     }
     if(userData[0].password !== credenciales.password) {
-      return res.json({
-        validation: {
-          errors: ["Credenciales incorrectas"]
-        }
+      return res.render("login", {
+        errors: ["Credenciales incorrectas"]
       });
     }
 
-    // TODO: Store the id and email in the Session Storage
+    req.session.loggedIn = true;
+    req.session.idUser = userData[0].id;
+    req.session.email = userData[0].email;
+    req.session.username = userData[0].username;
+
     return res.end("Encontrado");
   }
 
@@ -41,8 +39,12 @@ class AuthController {
   }
   
   async signUp(req, res) {
-    const { profilePic } = req.files;
-    req.body.profilePic = `/tmp/img/${profilePic.name}`;
+    console.log(req.body);
+    let profilePic = null;
+    if(req.files) {
+      profilePic = req.files.profilePic;
+      req.body.profilePic = `/tmp/img/${profilePic.name}`;
+    }
 
     const newUser = new User(req.body);
     const validation = newUser.validate();
@@ -51,17 +53,25 @@ class AuthController {
       const userSaved = await newUser.save();
 
       if(userSaved.success) {
-        profilePic.mv(path.join(__dirname, "..", "static", "tmp", "img", profilePic.name), async error => {
-          return res.json(userSaved.data);
-        });
+        if(profilePic) {
+          profilePic.mv(path.join(__dirname, "..", "static", "tmp", "img", profilePic.name), async error => {
+            return res.redirect("/auth/login");
+          });
+        } else {
+          return res.redirect("/auth/login");
+        }
       } else {
         validation.success = false;
         validation.errors = [userSaved.error];
 
-        return res.json(validation);
+        return res.render("signup", {
+          errors: validation.errors
+        });
       }
     } else {
-      return res.json(validation);
+      return res.render("signup", {
+        errors: validation.errors
+      });
     }
   }
 }
