@@ -1,6 +1,7 @@
 const path = require("path");
 const express = require("express");
 const morgan = require("morgan");
+const fileUpload = require("express-fileupload");
 const expressLayouts = require("express-ejs-layouts");
 // Importando las Variables de Entorno
 const { port } = require("./config/.");
@@ -26,6 +27,9 @@ app.set("layout", "./layouts/base");
 app.set("views", path.join(__dirname, "views"));
 
 app.use(express.urlencoded({extended: true}));
+
+// Middleware para la subida de Archivos
+app.use(fileUpload());
 
 // Utilizando rutas
 auth(app);

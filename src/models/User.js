@@ -1,4 +1,4 @@
-const { insert } = require("../config/database");
+const { query, insert } = require("../config/database");
 
 class User {
   idUser
@@ -40,6 +40,10 @@ class User {
     this.idUser = newUser?.data?.id;
 
     return newUser;
+  }
+
+  static async getByEmail(email) {
+    return await query(`SELECT * FROM users WHERE email=?`, [email]);
   }
 }
 

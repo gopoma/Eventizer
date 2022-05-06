@@ -7,6 +7,7 @@ function auth(app) {
   app.use("/auth", router);
 
   router.get("/login", authController.getLoginView);
+  router.post("/login", authController.logIn);
   router.get("/signup", authController.getSignUpView);
   router.post("/signup", authController.signUp);
 }

@@ -1,11 +1,18 @@
 <main class="container d-flex justify-content-center align-items-center" style="height:90vh;">
   <div class="row">
     <section class="col-12 col-md-6 d-flex justify-content-center align-items-center">
-      <h2>Login</h2>
+      <img class="d-inline-block img-fluid rounded w-75" src="/img/login_banner.jpg" alt="Login">
     </section>
     <section class="col-12 col-md-6 d-flex justify-content-center align-items-center">
       <div class="row w-75">
-        <h2>Login</h2>
+        <h2 class="fs-1 text-center fw-bold mb-3">Login</h2>
+        <form action="/auth/login" method="POST">
+          <input class="form-control mb-3" type="text" name="email" placeholder="Email" required>
+          <input class="form-control mb-3" type="password" name="password" placeholder="Password" required>
+          <div class="form-group d-flex justify-content-center align-items-center">
+            <input class="btn btn-primary w-100" type="submit" value="Login">
+          </div>
+        </form>
       </div>
     </section>
   </div>
