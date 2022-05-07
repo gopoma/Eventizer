@@ -3,10 +3,10 @@ const { query, insert } = require("../config/database");
 class User {
   idUser
   constructor(user) {
-    this.name = user.name;
-    this.username = user.username;
-    this.email = user.email;
-    this.birthday = user.birthday;
+    this.name = user.name.trim();
+    this.username = user.username.trim();
+    this.email = user.email.trim();
+    this.birthday = user.birthday.trim();
     this.profilePic = user.profilePic;
     this.password = user.password;
     this.passwordRepeated = user.passwordRepeated;
@@ -18,6 +18,10 @@ class User {
     if(!this.name || !this.username || !this.email || !this.birthday || !this.password || !this.passwordRepeated) {
       validation.success = false;
       validation.errors.push("Rellena todos los campos");
+    }
+    if(!this.email.match(/^[0-9a-zA-Z]+(\.[a-zA-Z]+)*@[a-zA-Z]+(\.[a-zA-Z]+)*$/)) {
+      validation.success = false;
+      validation.errors.push(`El email '${this.email}' no es válido`);
     }
     if(this.password !== this.passwordRepeated) {
       validation.success = false;
@@ -44,6 +48,9 @@ class User {
 
   static async getByEmail(email) {
     return await query(`SELECT * FROM users WHERE email=?`, [email]);
+  }
+  static async getByUsername(username) {
+    return await query(`SELECT * FROM users WHERE username=?`, [username]);
   }
 }
 

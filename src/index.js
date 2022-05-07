@@ -9,7 +9,9 @@ const session = require("express-session");
 
 // Importando rutas
 const auth = require("./routes/auth");
+const profile = require("./routes/profile");
 // Importando middlewares
+const addSessionToTemplate = require("./middleware/addSessionToTemplate");
 
 const app = express();
 
@@ -33,12 +35,14 @@ app.use(session({
   resave: false,
   saveUninitialized: false
 }));
+app.use(addSessionToTemplate);
 
 // Middleware para la subida de Archivos
 app.use(fileUpload());
 
 // Utilizando rutas
 auth(app);
+profile(app);
 
 app.listen(port, () => {
   console.log(`Listening on: http://localhost:${port}`);
