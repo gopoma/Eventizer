@@ -1,0 +1,12 @@
+<section class="authError">
+  <% if (typeof(errors) !== "undefined") { %>
+    <ul class="authError__errors">
+      <% errors.forEach(error => { %>
+        <li class="authError__error bg-danger text-white">
+          <span class="authError__content"><%- error %></span>
+          <span class="authError__closer">✘</span>
+        </li>
+      <% }) %>
+    </ul>
+  <% } %>
+</section>

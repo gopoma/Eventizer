@@ -1,0 +1,25 @@
+.authError {
+  position: absolute;
+  top: 4rem;
+  right: 0;
+}
+.authError__errors {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 0.75rem;
+  flex-direction: column;
+  list-style-type: none;
+}
+.authError__error {
+  padding: 0.75rem 1.2rem;
+  display: flex;
+  gap: 1.2rem;
+  justify-content: space-between;
+}
+.authError__closer {
+  cursor: pointer;
+}
+.authError__closer:hover {
+  color: #000000;
+}

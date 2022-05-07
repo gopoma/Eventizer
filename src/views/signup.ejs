@@ -22,10 +22,4 @@
     </section>
   </div>
 </main>
-<section class="authError">
-  <% if (typeof(errors) !== "undefined") { %>
-    <% errors.forEach(error => { %>
-      <div><%- error %> </div>
-    <% }) %>
-  <% } %>
-</section>
+<%- include("./components/authError") %> 
