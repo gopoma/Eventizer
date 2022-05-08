@@ -12,17 +12,17 @@ class AuthController {
 
     if(!credenciales.email || !credenciales.password) {
       return res.render("login", {
-        errors: ["Rellena todos los campos"]
+        errors: ["Fill all the fields"]
       });
     }
     if(userData.length === 0) {
       return res.render("login", {
-        errors: ["Usuario no registrado"]
+        errors: ["Unregistered user"]
       });
     }
     if(userData[0].password !== credenciales.password) {
       return res.render("login", {
-        errors: ["Credenciales incorrectas"]
+        errors: ["Wrong credencials"]
       });
     }
 
@@ -31,7 +31,7 @@ class AuthController {
     req.session.email = userData[0].email;
     req.session.username = userData[0].username;
 
-    return res.end("Encontrado");
+    return res.end("Found");
   }
 
   getSignUpView(req, res) {

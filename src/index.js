@@ -44,6 +44,8 @@ app.use(fileUpload());
 auth(app);
 profile(app);
 
+app.all("*", (req, res) => { return res.render("notFound"); });
+
 app.listen(port, () => {
   console.log(`Listening on: http://localhost:${port}`);
 });
