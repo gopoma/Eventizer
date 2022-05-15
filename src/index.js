@@ -10,6 +10,7 @@ const session = require("express-session");
 // Importando rutas
 const auth = require("./routes/auth");
 const profile = require("./routes/profile");
+const events = require("./routes/events");
 // Importando middlewares
 const addSessionToTemplate = require("./middleware/addSessionToTemplate");
 
@@ -43,6 +44,7 @@ app.use(fileUpload());
 // Utilizando rutas
 auth(app);
 profile(app);
+events(app);
 
 app.get("/notAllowed", (req, res) => { return res.render("notAllowed") });
 app.all("*", (req, res) => { return res.render("notFound"); });
