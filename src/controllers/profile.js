@@ -37,7 +37,7 @@ class ProfileController {
       return res.render("notFound");
     }
 
-    return res.render("updateProfile", { user, errors: ["XD"] });
+    return res.render("updateProfile", { user });
   }
 
   async updateProfile(req, res) {
