@@ -5,7 +5,7 @@
   <!-- Left Column -->
     <div class="col-md-3">
       <div class="text-center">
-        <img src="<%- user.profilePic %>" class="avatar img-circle img-thumbnail mb-2" alt="avatar">
+        <img src="<%- user.profilePic %>" class="avatar img-circle img-thumbnail mb-2" alt="<%- user.username %>">
         <h5>Current Profile Picture</h5>
       </div>
     </div>
@@ -55,13 +55,13 @@
         <div class="form-group mb-2">
           <label class="col-lg-3 control-label">New password:</label>
           <div class="col-lg-8">
-            <input class="form-control" type="password" name="newPassword">
+            <input class="form-control" type="password" name="password">
           </div>
         </div>
         <div class="form-group mb-2">
           <label class="col-lg-3 control-label">Confirm new password:</label>
           <div class="col-lg-8">
-            <input class="form-control" type="password" name="newPasswordRepeated">
+            <input class="form-control" type="password" name="passwordRepeated">
           </div>
         </div>
         <div class="form-group">

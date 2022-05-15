@@ -13,6 +13,7 @@ const query = function(sql, data) {
   return new Promise((resolve, reject) => {
     connection.query(sql, data, (error, result) => {
       if(error) {
+        console.log(error);
         switch(error.errno) {
           case 1062:
             const match = error.sqlMessage.match(/^.+'(.+)'.+'.+\.(.+)_.+'$/);

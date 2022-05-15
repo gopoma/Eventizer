@@ -8,7 +8,6 @@ class AuthController {
   async logIn(req, res) {
     const credenciales = req.body;
     const userData = await User.getByEmail(credenciales.email);
-    console.log(userData);
 
     if(!credenciales.email || !credenciales.password) {
       return res.render("login", {

@@ -1,3 +1,4 @@
+const path = require("path");
 const User = require("../models/User");
 
 class ProfileController {
@@ -40,24 +41,54 @@ class ProfileController {
   }
 
   async updateProfile(req, res) {
+    // You have to be that user to modify that account!
     if(req.params.username !== req.session.username) {
       return res.redirect("notAllowed");
     }
+
     const user = req.body;
+    const storedUserData = (await User.getByUsername(req.session.username))[0];
     const fallbackUser = {
       name: user.name,
       username: user.username,
-      profilePic:`/tmp/img/${req.session.username}`,
+      profilePic: storedUserData.profilePic,
       email: user.email,
       birthday: user.birthday
     }
-    if(!user.name || !user.username || !user.email || !user.birthday || !user.oldPassword || !user.newPassword || !user.newPasswordRepeated) {
+
+    // Validations
+    if(!user.name || !user.username || !user.email || !user.oldPassword || !user.password || !user.passwordRepeated) {
       return res.render("updateProfile", {user:fallbackUser, errors:["Fill all the fields"]});
     }
-    if(user.newPassword !== user.newPasswordRepeated) {
-      return res.render("updateProfile", {user:fallbackUser, errors:["New passwords don't match"]});
+    if(user.password !== user.passwordRepeated) {
+      return res.render("updateProfile", {user:fallbackUser, errors:["Confirmation mismatched"]});
     }
-    return res.json({message:"Partial Success!"});
+    if(user.oldPassword !== storedUserData.password) {
+      return res.render("updateProfile", {user:fallbackUser, errors:["Invalid current password"]});
+    }
+    if(!user.email.match(/^[0-9a-zA-Z]+(\.[a-zA-Z]+)*@[a-zA-Z]+(\.[a-zA-Z]+)*$/)) {
+      return res.render("updateProfile", {user:fallbackUser, errors:[`The email '${user.email}' isn't valid`]});
+    }
+
+    let profilePic = null;
+    let fileExtension;
+    if(req.files && req.files.profilePic) {
+      profilePic = req.files.profilePic;
+      fileExtension = profilePic.name.split(".")[1];
+      user.profilePic = `/tmp/img/${user.username}.${fileExtension}`;
+    }
+
+    // Updating...
+    const result = await User.update(req.session.idUser, user);
+    if(!result.success) {
+      return res.render("updateProfile", {user:fallbackUser, errors:result.errors});
+    }
+    if(!profilePic) {
+      return res.redirect("/auth/login");
+    }
+    profilePic.mv(path.join(__dirname, "..", "static", "tmp", "img", `${user.username}.${fileExtension}`), async error => {
+      return res.redirect("/auth/login");
+    });
   }
 }
 
