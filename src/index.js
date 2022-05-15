@@ -44,6 +44,7 @@ app.use(fileUpload());
 auth(app);
 profile(app);
 
+app.get("/notAllowed", (req, res) => { return res.render("notAllowed") });
 app.all("*", (req, res) => { return res.render("notFound"); });
 
 app.listen(port, () => {

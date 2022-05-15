@@ -27,7 +27,7 @@ class ProfileController {
   async getUpdateProfileView(req, res) {
     const { username } = req.params;
     if(username !== req.session.username) {
-      return res.json({message:"Forbidden!"});
+      return res.redirect("/notAllowed");
     }
     
     const userData = await User.getByUsername(username);
@@ -41,7 +41,7 @@ class ProfileController {
 
   async updateProfile(req, res) {
     if(req.params.username !== req.session.username) {
-      return res.json({message:"Forbidden!"});
+      return res.redirect("notAllowed");
     }
     const user = req.body;
     const fallbackUser = {
