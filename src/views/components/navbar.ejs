@@ -15,6 +15,9 @@
           </li>
         <% } else { %>
           <li class="nav-item">
+            <a class="btn btn-outline-info me-2" href="/profile/<%- session.username %>"><%- session.username %></a>
+          </li>
+          <li class="nav-item">
             <a class="btn btn-primary me-2" href="/events/create-event">Create Event</a>
           </li>
           <li class="nav-item">

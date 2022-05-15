@@ -10,6 +10,7 @@ function events(app) {
   app.use("/events", router);
 
   router.get("/create-event", eventController.getCreateEventView);
+  router.post("/create-event", eventController.createEvent);
 }
 
 module.exports = events;
