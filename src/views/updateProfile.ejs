@@ -1,0 +1,76 @@
+<div class="container bootstrap snippets bootdey my-4">
+  <h1 class="text-dark fw-bold">Edit Profile</h1>
+  <hr>
+  <div class="row">
+  <!-- Left Column -->
+    <div class="col-md-3">
+      <div class="text-center">
+        <img src="<%- user.profilePic %>" class="avatar img-circle img-thumbnail mb-2" alt="avatar">
+        <h5>Current Profile Picture</h5>
+      </div>
+    </div>
+    
+    <!-- Edit Form Column -->
+    <div class="col-md-9 personal-info">
+      <%- include("./components/authError") %>
+      <h3>Personal info</h3>
+
+      <form class="form-horizontal" role="form" action="/profile/update-profile/<%- user.username %>" method="POST" enctype="multipart/form-data">
+        <div class="form-group mb-2">
+          <label class="col-lg-3 control-label">Name:</label>
+          <div class="col-lg-8">
+            <input class="form-control" type="text" name="name" value="<%- user.name %>">
+          </div>
+        </div>
+        <div class="form-group mb-2">
+          <label class="col-lg-3 control-label">Username:</label>
+          <div class="col-lg-8">
+            <input class="form-control" type="text" name="username" value="<%- user.username %>">
+          </div>
+        </div>
+        <div class="form-group mb-2">
+          <label class="col-lg-3 control-label">Profile Picture:</label>
+          <div class="col-lg-8">
+            <input class="form-control" type="file" name="profilePic">
+          </div>
+        </div>
+        <div class="form-group mb-2">
+          <label class="col-lg-3 control-label">Email:</label>
+          <div class="col-lg-8">
+            <input class="form-control" type="email" name="email" value="<%- user.email %>">
+          </div>
+        </div>
+        <div class="form-group mb-2">
+          <label class="col-lg-3 control-label">Birthday:</label>
+          <div class="col-lg-8">
+            <input class="form-control" type="date" name="birthday" value="<%- user.birthday %>">
+          </div>
+        </div>
+        <div class="form-group mb-2">
+          <label class="col-lg-3 control-label">Old password:</label>
+          <div class="col-lg-8">
+            <input class="form-control" type="password" name="oldPassword">
+          </div>
+        </div>
+        <div class="form-group mb-2">
+          <label class="col-lg-3 control-label">New password:</label>
+          <div class="col-lg-8">
+            <input class="form-control" type="password" name="newPassword">
+          </div>
+        </div>
+        <div class="form-group mb-2">
+          <label class="col-lg-3 control-label">Confirm new password:</label>
+          <div class="col-lg-8">
+            <input class="form-control" type="password" name="newPasswordRepeated">
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-lg-8 d-flex justify-content-center align-items-center">
+            <input type="submit" value="Save changes">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<hr>

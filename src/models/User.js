@@ -1,4 +1,4 @@
-const { query, insert } = require("../config/database");
+const { query, insert } = require("../libs/database");
 
 class User {
   idUser

@@ -31,7 +31,7 @@ class AuthController {
     req.session.email = userData[0].email;
     req.session.username = userData[0].username;
 
-    return res.end("Found");
+    return res.redirect(`/profile/${req.session.username}`);
   }
 
   getSignUpView(req, res) {
@@ -39,11 +39,12 @@ class AuthController {
   }
   
   async signUp(req, res) {
-    console.log(req.body);
     let profilePic = null;
+    let fileExtension;
     if(req.files) {
       profilePic = req.files.profilePic;
-      req.body.profilePic = `/tmp/img/${profilePic.name}`;
+      fileExtension = profilePic.name.split(".")[1];
+      req.body.profilePic = `/tmp/img/${req.body.username}.${fileExtension}`;
     }
 
     const newUser = new User(req.body);
@@ -54,7 +55,7 @@ class AuthController {
 
       if(userSaved.success) {
         if(profilePic) {
-          profilePic.mv(path.join(__dirname, "..", "static", "tmp", "img", profilePic.name), async error => {
+          profilePic.mv(path.join(__dirname, "..", "static", "tmp", "img", `${userSaved.data.username}.${fileExtension}`), async error => {
             return res.redirect("/auth/login");
           });
         } else {
@@ -65,11 +66,13 @@ class AuthController {
         validation.errors = [userSaved.error];
 
         return res.render("signup", {
+          user: req.body,
           errors: validation.errors
         });
       }
     } else {
       return res.render("signup", {
+        user: req.body,
         errors: validation.errors
       });
     }

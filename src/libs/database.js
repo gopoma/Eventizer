@@ -1,5 +1,5 @@
 const mysql = require("mysql2");
-const { dbHost, dbPort, dbUser, dbPassword, dbName } = require("../config/.");
+const { dbHost, dbPort, dbUser, dbPassword, dbName } = require("../config");
 
 const connection = mysql.createConnection({
   host: dbHost,
