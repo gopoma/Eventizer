@@ -13,6 +13,7 @@ function events(app) {
   router.post("/create-event", eventController.createEvent);
   router.get("/update-event/:idEvent", eventController.getUpdateEventView);
   router.get("/delete-event/:idEvent", eventController.getDeleteEventView);
+  router.post("/delete-event/:idEvent", eventController.deleteEvent);
 }
 
 module.exports = events;

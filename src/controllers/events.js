@@ -1,3 +1,4 @@
+const session = require("express-session");
 const path = require("path");
 const Event = require("../models/Event");
 
@@ -48,8 +49,33 @@ class EventController {
     return res.render("updateEvent");
   }
 
-  getDeleteEventView(req, res) {
-    return res.render("deleteEvent");
+  async getDeleteEventView(req, res) {
+    const {idEvent} = req.params;
+    const [event] = await Event.getById(idEvent);
+
+    if(!event) {
+      return res.render("notFound");
+    }
+    if(req.session.idUser !== event.idHost) {
+      return res.redirect("/notAllowed");
+    }
+
+    return res.render("deleteEvent", {event});
+  }
+
+  async deleteEvent(req, res) {
+    const {idEvent} = req.params;
+    const [event] = await Event.getById(idEvent);
+
+    if(!event) {
+      return res.render("notFound");
+    }
+    if(req.session.idUser !== event.idHost) {
+      return res.redirect("/notAllowed");
+    }
+
+    await Event.deleteById(idEvent);
+    return res.redirect(`/profile/${req.session.username}`);
   }
 }
 

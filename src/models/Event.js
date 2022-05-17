@@ -1,4 +1,4 @@
-const { query, insert } = require("../libs/database");
+const { query, insert, del } = require("../libs/database");
 class Event {
   idEvent
   constructor(event) {
@@ -34,8 +34,16 @@ class Event {
     return newEvent;
   }
 
+  static async getById(idEvent) {
+    return await query("SELECT * FROM events WHERE id=?", [idEvent]);
+  }
+
   static async getByHost(idHost) {
     return await query("SELECT * FROM events WHERE idHost=?", [idHost]);
+  }
+
+  static async deleteById(idEvent) {
+    return await del("events", idEvent);
   }
 }
 
