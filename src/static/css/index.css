@@ -23,3 +23,20 @@
 .authError__closer:hover {
   color: #000000;
 }
+
+.events {
+  display: grid;
+  gap: 1.2rem;
+  grid-template-columns: repeat(1, 1fr);
+}
+
+@media screen and (min-width: 680px) {
+  .events {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media screen and (min-width: 1024px) {
+  .events {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

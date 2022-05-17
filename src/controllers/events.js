@@ -43,6 +43,14 @@ class EventController {
       });
     }
   }
+
+  getUpdateEventView(req, res) {
+    return res.render("updateEvent");
+  }
+
+  getDeleteEventView(req, res) {
+    return res.render("deleteEvent");
+  }
 }
 
 module.exports = EventController;
