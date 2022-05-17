@@ -75,7 +75,7 @@ class ProfileController {
     if(req.files && req.files.profilePic) {
       profilePic = req.files.profilePic;
       fileExtension = profilePic.name.split(".")[1];
-      user.profilePic = `/tmp/img/${user.username}.${fileExtension}`;
+      user.profilePic = `/tmp/img/users/${user.username}.${fileExtension}`;
     }
 
     // Updating...
@@ -86,7 +86,7 @@ class ProfileController {
     if(!profilePic) {
       return res.redirect("/auth/login");
     }
-    profilePic.mv(path.join(__dirname, "..", "static", "tmp", "img", `${user.username}.${fileExtension}`), async error => {
+    profilePic.mv(path.join(__dirname, "..", "static", "tmp", "img", "users", `${user.username}.${fileExtension}`), async error => {
       return res.redirect("/auth/login");
     });
   }

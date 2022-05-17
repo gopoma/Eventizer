@@ -43,7 +43,7 @@ class AuthController {
     if(req.files) {
       profilePic = req.files.profilePic;
       fileExtension = profilePic.name.split(".")[1];
-      req.body.profilePic = `/tmp/img/${req.body.username}.${fileExtension}`;
+      req.body.profilePic = `/tmp/img/users/${req.body.username}.${fileExtension}`;
     }
 
     const newUser = new User(req.body);
@@ -54,7 +54,7 @@ class AuthController {
 
       if(userSaved.success) {
         if(profilePic) {
-          profilePic.mv(path.join(__dirname, "..", "static", "tmp", "img", `${userSaved.data.username}.${fileExtension}`), async error => {
+          profilePic.mv(path.join(__dirname, "..", "static", "tmp", "img", "users", `${userSaved.data.username}.${fileExtension}`), async error => {
             return res.redirect("/auth/login");
           });
         } else {
