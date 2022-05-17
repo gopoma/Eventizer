@@ -34,7 +34,7 @@ class EventController {
       return res.render("createEvent", {event:eventData, errors:["A wild error has appeared!"]});
     }
 
-    return res.json({message:"Creating an Event!"});
+    return res.redirect(`/profile/${req.session.username}`);
   }
 }
 
