@@ -1,3 +1,4 @@
+const path = require("path");
 const Event = require("../models/Event");
 
 class EventController {
@@ -11,7 +12,7 @@ class EventController {
     if(req.files && req.files.eventPicture) {
       eventPicture = req.files.eventPicture;
       fileExtension = eventPicture.name.split(".")[1];
-      req.body.eventPicture = `/tmp/img/events/${req.body.title}.${fileExtension}`;
+      req.body.eventPicture = `/tmp/img/events/${req.session.username}__${req.body.title}.${fileExtension}`;
     }
 
     const eventData = {
@@ -34,7 +35,13 @@ class EventController {
       return res.render("createEvent", {event:eventData, errors:["A wild error has appeared!"]});
     }
 
-    return res.redirect(`/profile/${req.session.username}`);
+    if(!eventPicture) {
+      return res.redirect(`/profile/${req.session.username}`);
+    } else {
+      eventPicture.mv(path.join(__dirname, "..", "static", "tmp", "img", "events", `${req.session.username}__${req.body.title}.${fileExtension}`), async error => {
+        return res.redirect(`/profile/${req.session.username}`);
+      });
+    }
   }
 }
 
