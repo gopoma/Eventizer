@@ -33,6 +33,10 @@ class Event {
 
     return newEvent;
   }
+
+  static async getByHost(idHost) {
+    return await query("SELECT * FROM events WHERE idHost=?", [idHost]);
+  }
 }
 
 module.exports = Event;

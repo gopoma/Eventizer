@@ -1,16 +1,17 @@
 const path = require("path");
 const User = require("../models/User");
-
+const Event = require("../models/Event");
 class ProfileController {
   async renderProfile(req, res) {
     const { username } = req.params;
     const userData = await User.getByUsername(username);
     const user = userData[0];
-
+    const events = await Event.getByHost(user?.id);
+    
     if(!user) {
       return res.render("notFound");
     }
-    return res.render("profile", { user });
+    return res.render("profile", { user, events });
   }
 
   async getUpdateProfileView(req, res) {

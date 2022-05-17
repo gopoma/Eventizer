@@ -76,3 +76,11 @@
     </div>
   </div>
 </main>
+<% events.forEach(event => { %>
+  <div>
+    <p><%- event.title %></p>
+    <p><%- event.description %></p>
+    <img src="<%- event.eventPicture %>" alt="<%- event.title %>">
+    <p><%- event.realization %></p>
+  </div>
+<% }) %>
