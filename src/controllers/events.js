@@ -58,8 +58,19 @@ class EventController {
     }
   }
 
-  getUpdateEventView(req, res) {
-    return res.render("updateEvent");
+  async getUpdateEventView(req, res) {
+    const {idEvent} = req.params;
+    const eventData = await Event.getById(idEvent);
+    const event = eventData[0];
+
+    if(!event) {
+      return res.render("notFound");
+    }
+    if(req.session.idUser !== event.idHost) {
+      return res.redirect("/notAllowed");
+    }
+
+    return res.render("updateEvent", {event});
   }
 
   async getDeleteEventView(req, res) {

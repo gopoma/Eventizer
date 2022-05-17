@@ -58,7 +58,7 @@
                     <h4 class="card-title"><%- event.title %></h4>
                     <p class="card-text"><%- event.description %></p>
                     <p><%- event.realization %></p>
-                    <a href="/events/<%- event.id %>" class="btn btn-secondary">View Details</a>
+                    <a href="/events/view-details/<%- event.id %>" class="btn btn-secondary">View Details</a>
                     <% if(session.username === user.username) { %>
                       <a href="/events/update-event/<%- event.id %>" class="btn btn-dark">Update</a>
                       <a href="/events/delete-event/<%- event.id %>" class="btn btn-danger">Delete</a>

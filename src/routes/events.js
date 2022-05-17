@@ -9,12 +9,12 @@ function events(app) {
   app.use("/events", verifySession);
   app.use("/events", router);
 
+  router.get("/view-details/:idEvent", eventController.renderEventDetails);
   router.get("/create-event", eventController.getCreateEventView);
   router.post("/create-event", eventController.createEvent);
   router.get("/update-event/:idEvent", eventController.getUpdateEventView);
   router.get("/delete-event/:idEvent", eventController.getDeleteEventView);
   router.post("/delete-event/:idEvent", eventController.deleteEvent);
-  router.get("/:idEvent", eventController.renderEventDetails);
 }
 
 module.exports = events;
