@@ -46,6 +46,10 @@ class User {
     return newUser;
   }
 
+  static async getById(idUser) {
+    return await query(`SELECT * FROM users WHERE id=?`, [idUser]);
+  }
+
   static async getByEmail(email) {
     return await query(`SELECT * FROM users WHERE email=?`, [email]);
   }

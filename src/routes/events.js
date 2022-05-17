@@ -14,6 +14,7 @@ function events(app) {
   router.get("/update-event/:idEvent", eventController.getUpdateEventView);
   router.get("/delete-event/:idEvent", eventController.getDeleteEventView);
   router.post("/delete-event/:idEvent", eventController.deleteEvent);
+  router.get("/:idEvent", eventController.renderEventDetails);
 }
 
 module.exports = events;

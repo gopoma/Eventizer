@@ -52,19 +52,19 @@
             </div>
             <div class="events row gx-2">
               <% events.forEach(event => { %>
-                <div class="card">
+                <article class="card">
                   <img class="card-img-top" src="<%- event.eventPicture %>" alt="<%- event.title %>">
                   <div class="card-body">
                     <h4 class="card-title"><%- event.title %></h4>
                     <p class="card-text"><%- event.description %></p>
                     <p><%- event.realization %></p>
-                    <a href="#" class="btn btn-secondary">View Details</a>
+                    <a href="/events/<%- event.id %>" class="btn btn-secondary">View Details</a>
                     <% if(session.username === user.username) { %>
                       <a href="/events/update-event/<%- event.id %>" class="btn btn-dark">Update</a>
                       <a href="/events/delete-event/<%- event.id %>" class="btn btn-danger">Delete</a>
                     <% } %>
                   </div>
-                </div>
+                </article>
               <% }) %>
             </div>
           </div>

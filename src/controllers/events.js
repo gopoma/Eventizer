@@ -1,9 +1,23 @@
-const session = require("express-session");
 const path = require("path");
 const Event = require("../models/Event");
-
+const User = require("../models/User");
 class EventController {
+  async renderEventDetails(req, res) {
+    const {idEvent} = req.params;
+    const eventData = await Event.getById(idEvent);
+    const event = eventData[0];
+    
+    if(!event) {
+      return res.render("notFound");
+    }
+    
+    const hostData = await User.getById(event.idHost);
+    const host = hostData[0];
+    return res.render("event", {event, host});
+  }
+  
   getCreateEventView(req, res) {
+    console.log("XDDD");
     return res.render("createEvent");
   }
 
