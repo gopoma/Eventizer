@@ -17,7 +17,6 @@ class EventController {
   }
   
   getCreateEventView(req, res) {
-    console.log("XDDD");
     return res.render("createEvent");
   }
 
