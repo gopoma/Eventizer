@@ -5,11 +5,11 @@
       <form action="/events/create-event" method="POST" enctype="multipart/form-data">
         <div class="m-0 row d-flex-justify-content-center align-items-center input-group mb-3">
           <label class="col-12 col-md-2 form-label fw-bold">Title</label>
-          <input class="col-12 col-md-10 form-control" type="text" name="title" name="title">
+          <input class="col-12 col-md-10 form-control" type="text" name="title" name="title" value="<% if (typeof(event) !== "undefined") { %><%- event.title %><% } %>">
         </div>
         <div class="m-0 row d-flex-justify-content-center align-items-center input-group mb-3">
           <label class="col-12 col-md-2 form-label fw-bold">Description</label>
-          <textarea class="col-12 col-md-10 form-control" name="description"></textarea>
+          <textarea class="col-12 col-md-10 form-control" name="description"><% if (typeof(event) !== "undefined") { %><%- event.description %><% } %></textarea>
         </div>
         <div class="m-0 row d-flex-justify-content-center align-items-center input-group mb-3">
           <label class="col-12 col-md-2 form-label fw-bold">Event Picture</label>
@@ -17,7 +17,7 @@
         </div>
         <div class="m-0 row d-flex-justify-content-center align-items-center input-group mb-3">
           <label class="col-12 col-md-2 form-label fw-bold">Realization</label>
-          <input class="col-12 col-md-10 form-control" type="datetime-local" name="realization">
+          <input class="col-12 col-md-10 form-control" type="datetime-local" name="realization" value="<% if (typeof(event) !== "undefined") { %><%- event.realization %><% } %>">
         </div>
         <div class="m-0 row d-flex justify-content-center align-items-center">
           <input class="col-4 btn btn-dark" type="submit" value="Create Event">
@@ -26,3 +26,4 @@
     </div>
   </div>
 </main>
+<%- include("./components/authError") %>
