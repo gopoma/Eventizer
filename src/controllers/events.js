@@ -58,6 +58,11 @@ class EventController {
     }
   }
 
+  async updateEvent(req, res) {
+    console.log(req.params.idEvent);
+    return res.json(req.body);
+  }
+
   async getUpdateEventView(req, res) {
     const {idEvent} = req.params;
     const eventData = await Event.getById(idEvent);

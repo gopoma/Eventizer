@@ -42,6 +42,27 @@ const insert = async function(tableName, data) {
   }
 }
 
+async function update(tableName, possibleFields, data, id) {
+  try {
+    const availableFields = possibleFields.filter(possibleField => data[possibleField]?.toString().trim());
+    const escapedAssignationsExceed = availableFields.reduce((a, x) => `${a}??=?,`, "");
+    const escapedAssignations = escapedAssignationsExceed.substring(0, escapedAssignationsExceed.length - 1);
+    const assignationsData = availableFields.reduce((a, x) => [...a, x, data[x]], []);
+    
+    await query(`UPDATE ?? SET ${escapedAssignations} WHERE id=?`, [tableName, ...assignationsData, id]);
+    return {
+      success: true,
+      message: "OK"
+    }
+  } catch(error) {
+    console.log(error);
+    return {
+      success: false,
+      message: error.sqlMessage
+    }
+  }
+}
+
 const del = async function(tableName, id) {
   try {
     await query(`DELETE FROM ${tableName} WHERE id=?`, [id]);
@@ -51,4 +72,4 @@ const del = async function(tableName, id) {
   }
 }
 
-module.exports = {query, insert, del};
+module.exports = {query, insert, update, del};
