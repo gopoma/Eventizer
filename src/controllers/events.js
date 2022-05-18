@@ -58,11 +58,6 @@ class EventController {
     }
   }
 
-  async updateEvent(req, res) {
-    console.log(req.params.idEvent);
-    return res.json(req.body);
-  }
-
   async getUpdateEventView(req, res) {
     const {idEvent} = req.params;
     const eventData = await Event.getById(idEvent);
@@ -76,6 +71,50 @@ class EventController {
     }
 
     return res.render("updateEvent", {event});
+  }
+
+  async updateEvent(req, res) {
+    const {idEvent} = req.params;
+    const eventData = await Event.getById(idEvent);
+    const event = eventData[0];
+
+    if(!event) {
+      return res.render("notFound");
+    }
+    if(req.session.idUser !== event.idHost) {
+      return res.redirect("/notAllowed");
+    }
+
+    const {title, description, realization} = req.body;
+    if(!title || !description || !realization) {
+      return res.render("updateEvent", {event:{...req.body, id: event.id}, errors:["Fill al the fields"]});
+    }
+
+    let eventPicture;
+    let fileExtension;
+    if(req.files && req.files.eventPicture) {
+      eventPicture = req.files.eventPicture;
+      fileExtension = eventPicture.name.split(".")[1];
+    }
+    const updatedEvent = {
+      idHost: req.session.idUser,
+      title: title.trim(),
+      description: description.trim(),
+      eventPicture: `/tmp/img/events/${req.session.username}__${title}.${fileExtension}`,
+      realization
+    }
+
+    const result = await Event.update(idEvent, updatedEvent);
+    if(!result) {
+      return res.render("updateEvent", {event:{...req.body, id: event.id}, errors:["A wild error has appeared!"]});
+    }
+    if(eventPicture) {
+      eventPicture.mv(path.join(__dirname, "..", "static", "tmp", "img", "events", `${req.session.username}__${updatedEvent.title}.${fileExtension}`), async err => {
+        return res.redirect(`/profile/${req.session.username}`);
+      });
+    } else {
+      return res.redirect(`/profile/${req.session.username}`);
+    }
   }
 
   async getDeleteEventView(req, res) {

@@ -1,4 +1,4 @@
-const { query, insert, del } = require("../libs/database");
+const { query, insert, update, del } = require("../libs/database");
 class Event {
   idEvent
   constructor(event) {
@@ -40,6 +40,17 @@ class Event {
 
   static async getByHost(idHost) {
     return await query("SELECT * FROM events WHERE idHost=?", [idHost]);
+  }
+
+  static async update(id, data) {
+    try {
+      const possibleFields = ["idHost", "title", "description", "eventPicture", "realization"];
+      await update("events", possibleFields, data, id);
+      return {success:true};
+    } catch(error) {
+      console.log(error);
+      return {success:false};
+    }
   }
 
   static async deleteById(idEvent) {
