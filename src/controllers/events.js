@@ -2,6 +2,21 @@ const path = require("path");
 const Event = require("../models/Event");
 const User = require("../models/User");
 class EventController {
+  async renderEvents(req, res) {
+    const eventData = await Event.getAll();
+    const events = eventData.map(event => ({
+      ...event, 
+      host: {
+        id: event.idHost,
+        name: event.name,
+        username: event.username,
+        email: event.email,
+        profilePic: event.profilePic
+      }
+    }));
+    return res.json(events);
+  }
+
   async renderEventDetails(req, res) {
     const {idEvent} = req.params;
     const [event] = await Event.getById(idEvent);

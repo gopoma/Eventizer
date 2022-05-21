@@ -9,6 +9,7 @@ function events(app) {
   app.use("/events", verifySession);
   app.use("/events", router);
 
+  router.get("/", eventController.renderEvents);
   router.get("/view-details/:idEvent", eventController.renderEventDetails);
   router.get("/create-event", eventController.getCreateEventView);
   router.post("/create-event", eventController.createEvent);

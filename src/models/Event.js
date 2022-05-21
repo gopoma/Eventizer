@@ -34,6 +34,10 @@ class Event {
     return newEvent;
   }
 
+  static async getAll() {
+    return await query("SELECT *, events.id AS idEvent FROM events JOIN users ON events.idHost=users.id ORDER BY events.realization");
+  }
+
   static async getById(idEvent) {
     return await query("SELECT * FROM events WHERE id=?", [idEvent]);
   }
