@@ -1,24 +1,32 @@
 <main class="container">
-  <h1 class="py-4 text-center"><%- event.title %></h1>
+  <h1 class="m-0 py-4 text-center"><%- event.title %></h1>
   <section class="row">
     <div class="col-12 col-md-6 d-flex justify-content-center align-items-center">
-      <article class="bg-warning">
-        <img src="<%- event.eventPicture %>" alt="<%- event.title %>">
-        <h3><%- event.title %></h3>
-        <p><%- event.description %></p>
+      <article class="p-4 border border-4 border-dark">
+        <h2 class="text-center fw-bold">Event</h2>
+        <div class="d-flex justify-content-center align-items-center">
+          <img src="<%- event.eventPicture %>" alt="<%- event.title %>" class="img-fluid img-thumbnail mt-4 mb-2" style="width:45%;height:45%;">
+        </div>
+        <h3 class="py-2 text-center fw-bold"><%- event.title %></h3>
+        <p title="description"><%- event.description %></p>
+        <p title="realization"><%- event.realization %></p>
         <div>
           <% if (canEnlist) { %>
-            <a href="/events/<%- event.id %>/addGuest" class="btn btn-dark text-white">Enlist</a>
+            <a href="/events/<%- event.id %>/addGuest" class="btn btn-dark">Enlist</a>
           <% } %>
         </div>
       </article>
     </div>
     <div class="col-12 col-md-6 d-flex justify-content-center align-items-center">
-      <aside class="bg-secondary">
-        <h3>Host</h3>
-        <img src="<%- host.profilePic %>" alt="<%- host.username %>">
-        <p><%- host.name %></p>
-        <p><%- host.username %></p>
+      <aside class="w-50 p-4 border border-4 border-dark bg-light">
+        <h4 class="text-center fw-bold">Host</h4>
+        <div class="d-flex justify-content-center align-items-center">
+          <img src="<%- host.profilePic %>" alt="<%- host.username %>" class="img-fluid img-thumbnail" style="width:45%;height:45%;">
+        </div>
+        <div class="d-flex flex-column align-items-center">
+          <p class="m-0 text-center fw-bold" title="name"><%- host.name %></p>
+          <a href="/profile/<%- host.username %>" class="text-center fw-bold" title="username"><%- host.username %></a>
+        </div>
       </aside>
     </div>
   </section>
