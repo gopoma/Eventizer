@@ -12,7 +12,6 @@ class ProfileController {
         isHost: event.idHost === user.id
       }
     });
-    console.log(events);
     
     if(!user) {
       return res.render("notFound");

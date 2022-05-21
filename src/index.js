@@ -45,7 +45,7 @@ app.get("/", (req, res) => {
   if(!req.session.loggedIn) {
     return res.redirect("/auth/login");
   }
-  return res.redirect(`/profile/${req.session.username}`);
+  return res.redirect("/events");
 });
 // Utilizando rutas
 auth(app);
