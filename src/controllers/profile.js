@@ -4,9 +4,15 @@ const Event = require("../models/Event");
 class ProfileController {
   async renderProfile(req, res) {
     const { username } = req.params;
-    const userData = await User.getByUsername(username);
-    const user = userData[0];
-    const events = await Event.getByHost(user?.id);
+    const [user] = await User.getByUsername(username);
+    const eventData = await Event.getRelatedEvents(user?.id);
+    const events = eventData.map(event => {
+      return {
+        ...event,
+        isHost: event.idHost === user.id
+      }
+    });
+    console.log(events);
     
     if(!user) {
       return res.render("notFound");

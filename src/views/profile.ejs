@@ -55,7 +55,14 @@
                 <article class="card">
                   <img class="card-img-top" src="<%- event.eventPicture %>" alt="<%- event.title %>">
                   <div class="card-body">
-                    <h4 class="card-title"><%- event.title %></h4>
+                    <div class="row d-flex align-items-center">
+                      <h4 class="col-9 card-title"><%- event.title %></h4>
+                      <% if(event.isHost) { %>
+                        <span class="col-2 badge bg-dark">Host</span>
+                      <% } else { %>
+                        <code class="col-2 badge bg-secondary">Guest</code>
+                      <% } %>
+                    </div>
                     <p class="card-text"><%- event.description %></p>
                     <p><%- event.realization %></p>
                     <a href="/events/view-details/<%- event.id %>" class="btn btn-secondary">View Details</a>

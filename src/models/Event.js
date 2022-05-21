@@ -35,15 +35,15 @@ class Event {
   }
 
   static async getAll() {
-    return await query("SELECT *, events.id AS idEvent FROM events JOIN users ON events.idHost=users.id ORDER BY events.realization");
+    return await query("SELECT *, events.id AS idEvent FROM events JOIN users ON events.idHost=users.id ORDER BY events.realization DESC");
   }
 
   static async getById(idEvent) {
     return await query("SELECT * FROM events WHERE id=?", [idEvent]);
   }
 
-  static async getByHost(idHost) {
-    return await query("SELECT * FROM events WHERE idHost=?", [idHost]);
+  static async getRelatedEvents(idUser) {
+    return await query("SELECT * FROM `events`, `guests` WHERE events.idHost=107 OR guests.idGuest=107 ORDER BY events.realization DESC", [idUser, idUser]);
   }
 
   static async getGuests(idEvent) {
