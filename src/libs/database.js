@@ -6,7 +6,8 @@ const connection = mysql.createConnection({
   port: dbPort,
   user: dbUser,
   password: dbPassword,
-  database: dbName
+  database: dbName,
+  dateStrings: true
 });
 
 const query = function(sql, data) {
