@@ -14,7 +14,7 @@ class EventController {
         profilePic: event.profilePic
       }
     }));
-    return res.json(events);
+    return res.render("events", {events});
   }
 
   async renderEventDetails(req, res) {
