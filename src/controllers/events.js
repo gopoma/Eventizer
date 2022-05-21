@@ -28,9 +28,8 @@ class EventController {
     const [host] = await User.getById(event.idHost);
 
     const guests = await Event.getGuests(event.id);
-    // const enlistData = guests.filter(guest => event.idHost !== req.session.idUser && guest.idGuest === req.session.idUser);
-    const enlistData = guests.filter(guest => guest.idGuest === req.session.idUser);
-    const canEnlist = enlistData.length === 0;
+    const enlistData = guests.filter(guest => event.idHost === req.session.idUser);
+    const canEnlist = enlistData.length === 0 && event.idHost !== req.session.idUser;
 
     return res.render("event", {event, host, canEnlist});
   }
