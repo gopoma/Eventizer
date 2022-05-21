@@ -53,6 +53,7 @@ class User {
   static async getByEmail(email) {
     return await query(`SELECT * FROM users WHERE email=?`, [email]);
   }
+
   static async getByUsername(username) {
     return await query(`SELECT * FROM users WHERE username=?`, [username]);
   }

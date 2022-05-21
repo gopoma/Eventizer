@@ -4,16 +4,20 @@ const User = require("../models/User");
 class EventController {
   async renderEventDetails(req, res) {
     const {idEvent} = req.params;
-    const eventData = await Event.getById(idEvent);
-    const event = eventData[0];
+    const [event] = await Event.getById(idEvent);
     
     if(!event) {
       return res.render("notFound");
     }
     
-    const hostData = await User.getById(event.idHost);
-    const host = hostData[0];
-    return res.render("event", {event, host});
+    const [host] = await User.getById(event.idHost);
+
+    const guests = await Event.getGuests(event.id);
+    // const enlistData = guests.filter(guest => event.idHost !== req.session.idUser && guest.idGuest === req.session.idUser);
+    const enlistData = guests.filter(guest => guest.idGuest === req.session.idUser);
+    const canEnlist = enlistData.length === 0;
+
+    return res.render("event", {event, host, canEnlist});
   }
   
   getCreateEventView(req, res) {
@@ -56,6 +60,12 @@ class EventController {
         return res.redirect(`/profile/${req.session.username}`);
       });
     }
+  }
+
+  async addGuest(req, res) {
+    const {idEvent} = req.params;
+    await Event.addGuest(idEvent, req.session.idUser);
+    return res.redirect(`/profile/${req.session.username}`);
   }
 
   async getUpdateEventView(req, res) {

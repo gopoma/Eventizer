@@ -6,6 +6,11 @@
         <img src="<%- event.eventPicture %>" alt="<%- event.title %>">
         <h3><%- event.title %></h3>
         <p><%- event.description %></p>
+        <div>
+          <% if (canEnlist) { %>
+            <a href="/events/<%- event.id %>/addGuest" class="btn btn-dark text-white">Enlist</a>
+          <% } %>
+        </div>
       </article>
     </div>
     <div class="col-12 col-md-6 d-flex justify-content-center align-items-center">

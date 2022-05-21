@@ -42,6 +42,20 @@ class Event {
     return await query("SELECT * FROM events WHERE idHost=?", [idHost]);
   }
 
+  static async getGuests(idEvent) {
+    return await query("SELECT * FROM guests JOIN users ON guests.idGuest=users.id WHERE guests.idEvent=?", [idEvent]);
+  }
+
+  static async addGuest(idEvent, idGuest) {
+    try {
+      await query("INSERT INTO guests(idEvent, idGuest) VALUES (?, ?)", [idEvent, idGuest]);
+      return {success: true};
+    } catch(error) {
+      console.log(error);
+      return {success:false};
+    }
+  }
+
   static async update(id, data) {
     try {
       const possibleFields = ["idHost", "title", "description", "eventPicture", "realization"];
