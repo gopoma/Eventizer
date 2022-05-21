@@ -50,6 +50,10 @@ class Event {
     return await query("SELECT * FROM guests JOIN users ON guests.idGuest=users.id WHERE guests.idEvent=?", [idEvent]);
   }
 
+  static async getGuest(idEvent, idGuest) {
+    return await query("SELECT users.id, users.name, users.username, users.profilePic FROM guests JOIN users ON guests.idGuest=users.id WHERE guests.idEvent=? AND guests.idGuest=?", [idEvent, idGuest]);
+  }
+
   static async addGuest(idEvent, idGuest) {
     try {
       await query("INSERT INTO guests(idEvent, idGuest) VALUES (?, ?)", [idEvent, idGuest]);

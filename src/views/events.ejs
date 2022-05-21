@@ -13,6 +13,15 @@
               <div class="col-10">
                 <h3><%- event.title %></h3>
                 <a href="/profile/<%- event.host.username %>" class="fw-bold"><%- event.host.username %></a>
+                <% if(event.isHost) { %>
+                  <span class="badge bg-dark">You are the Host :)</span>
+                <% } else { %>
+                  <% if(event.isEnlisted) { %>
+                    <span class="border border-2 border-dark badge text-black" style="background-color:#F3F3F3;">Already Enlisted</span>
+                  <% } else { %>
+                    <span class="border border-2 border-dark badge text-black" style="background-color:#CCC;">Not Enlisted yet</span>
+                  <% } %>
+                <% } %>
                 <p><%- event.description %></p>
                 <p><%- event.realization %></p>
               </div>

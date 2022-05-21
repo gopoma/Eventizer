@@ -4,14 +4,20 @@ const User = require("../models/User");
 class EventController {
   async renderEvents(req, res) {
     const eventData = await Event.getAll();
-    const events = eventData.map(event => ({
-      ...event, 
-      host: {
-        id: event.idHost,
-        name: event.name,
-        username: event.username,
-        email: event.email,
-        profilePic: event.profilePic
+    const events = await Promise.all(eventData.map(async event => {
+      const guestData = await Event.getGuest(event.idEvent, req.session.idUser);
+
+      return {
+        ...event,
+        isHost: req.session.idUser === event.idHost,
+        isEnlisted: guestData.length !== 0,
+        host: {
+          id: event.idHost,
+          name: event.name,
+          username: event.username,
+          email: event.email,
+          profilePic: event.profilePic
+        }
       }
     }));
     return res.render("events", {events});
