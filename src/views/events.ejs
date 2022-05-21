@@ -1,14 +1,14 @@
-<main class="container bg-warning" style="min-height:92.25vh;">
+<main class="container" style="min-height:92.25vh;">
   <section class="row">
     <% events.forEach(event => { %>
-      <article class="col-12 mb-2 p-2 bg-light">
+      <article class="col-12 border border-4 border-dark mb-2 p-2 bg-light">
         <div class="row">
           <div class="col-2 d-flex justify-content-center align-items-center">
             <img src="<%- event.host.profilePic %>"
               alt="<%- event.host.username %>" class="img-fluid img-thumbnail mt-4 mb-2"
               style="width:150px; height:150px;">
           </div>
-          <div class="col-10 d-flex align-items-center bg-danger">
+          <div class="col-10 d-flex align-items-center" style="background-color:#DDD;">
             <div class="row w-100">
               <div class="col-10">
                 <h3><%- event.title %></h3>
@@ -17,7 +17,7 @@
                 <p><%- event.realization %></p>
               </div>
               <div class="col-2 d-flex justify-content-center align-items-center">
-                <a href="" class="btn btn-secondary">View details</a>
+                <a href="/events/view-details/<%- event.idEvent %>" class="btn btn-dark">View details</a>
               </div>
             </div>
           </div>
