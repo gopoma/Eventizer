@@ -41,6 +41,12 @@ app.use(addSessionToTemplate);
 // Middleware para la subida de Archivos
 app.use(fileUpload());
 
+app.get("/", (req, res) => {
+  if(!req.session.loggedIn) {
+    return res.redirect("/auth/login");
+  }
+  return res.redirect(`/profile/${req.session.username}`);
+});
 // Utilizando rutas
 auth(app);
 profile(app);
