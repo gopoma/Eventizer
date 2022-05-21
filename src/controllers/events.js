@@ -1,6 +1,7 @@
 const path = require("path");
 const Event = require("../models/Event");
 const User = require("../models/User");
+const parseDateString = require("../helpers/parseDateString");
 class EventController {
   async renderEvents(req, res) {
     const eventData = await Event.getAll();
@@ -9,6 +10,7 @@ class EventController {
 
       return {
         ...event,
+        date: parseDateString(event.realization),
         isHost: req.session.idUser === event.idHost,
         isEnlisted: guestData.length !== 0,
         host: {
@@ -37,7 +39,7 @@ class EventController {
     const enlistData = guests.filter(guest => guest.idGuest === req.session.idUser);
     const canEnlist = enlistData.length === 0 && event.idHost !== req.session.idUser;
 
-    return res.render("event", {event, host, canEnlist});
+    return res.render("event", {event:{...event, date:parseDateString(event.realization)}, host, canEnlist});
   }
   
   getCreateEventView(req, res) {

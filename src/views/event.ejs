@@ -8,8 +8,8 @@
           <img src="<%- event.eventPicture %>" alt="<%- event.title %>" class="img-fluid img-thumbnail mt-4 mb-2" style="width:45%;height:45%;">
         </div>
         <h3 class="py-2 text-center fw-bold"><%- event.title %></h3>
-        <p title="description"><%- event.description %></p>
-        <p title="realization"><%- event.realization %></p>
+        <p title="description"><span class="fw-bold">Description:</span> <%- event.description %></p>
+        <p title="realization"><span class="fw-bold">When :v?:</span> <%- event.date.day %>, <%- event.date.date %> de <%- event.date.month %>, <%- event.date.hour %>:<%- event.date.minute %>hrs.</p>
         <div>
           <% if (canEnlist) { %>
             <a href="/events/<%- event.id %>/addGuest" class="btn btn-dark">Enlist</a>

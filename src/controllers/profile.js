@@ -1,4 +1,5 @@
 const path = require("path");
+const parseDateString = require("../helpers/parseDateString");
 const User = require("../models/User");
 const Event = require("../models/Event");
 class ProfileController {
@@ -9,6 +10,7 @@ class ProfileController {
     const events = eventData.map(event => {
       return {
         ...event,
+        date: parseDateString(event.realization),
         isHost: event.idHost === user.id
       }
     });

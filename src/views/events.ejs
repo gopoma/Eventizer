@@ -23,7 +23,7 @@
                   <% } %>
                 <% } %>
                 <p><%- event.description %></p>
-                <p><%- event.realization %></p>
+                <p><span class="fw-bold">When :v?:</span> <%- event.date.day %>, <%- event.date.date %> de <%- event.date.month %>, <%- event.date.hour %>:<%- event.date.minute %>hrs.</p>
               </div>
               <div class="col-2 d-flex justify-content-center align-items-center">
                 <a href="/events/view-details/<%- event.idEvent %>" class="btn btn-dark">View details</a>
