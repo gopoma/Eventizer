@@ -43,7 +43,7 @@ class Event {
   }
 
   static async getRelatedEvents(idUser) {
-    return await query("SELECT * FROM `events`, `guests` WHERE events.idHost=107 OR guests.idGuest=107 ORDER BY events.realization DESC", [idUser, idUser]);
+    return await query("SELECT *, events.id AS idEvent FROM `events`, `guests` WHERE events.idHost=107 OR guests.idGuest=107 ORDER BY events.realization DESC", [idUser, idUser]);
   }
 
   static async getGuests(idEvent) {
