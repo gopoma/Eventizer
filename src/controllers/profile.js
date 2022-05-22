@@ -18,7 +18,7 @@ class ProfileController {
     if(!user) {
       return res.render("notFound");
     }
-    return res.render("profile", { user, events });
+    return res.render("profile", { username, user, events });
   }
 
   async getUpdateProfileView(req, res) {
