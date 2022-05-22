@@ -39,4 +39,11 @@ document.addEventListener("DOMContentLoaded", () => {
       picture.src = "/img/fallback.png";
     }
   });
+
+  const guestsBox = document.querySelector("#guestsBox");
+  document.querySelector("#btnAddGuest")?.addEventListener("click", () => {
+    guestsBox.innerHTML += `
+      <input class="form-control mb-2" type="text" name="guestUsernames" placeholder="Guest Username">
+    `;
+  });
 });

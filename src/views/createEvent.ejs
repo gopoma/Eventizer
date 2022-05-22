@@ -5,19 +5,27 @@
       <form action="/events/create-event" method="POST" enctype="multipart/form-data">
         <div class="m-0 row d-flex-justify-content-center align-items-center input-group mb-3">
           <label class="col-12 col-md-2 form-label fw-bold">Title</label>
-          <input class="col-12 col-md-10 form-control" type="text" name="title" name="title" value="<% if (typeof(event) !== "undefined") { %><%- event.title %><% } %>">
+          <input class="col-12 col-md-10 form-control" type="text" name="title" value="<% if (typeof(event) !== "undefined") { %><%- event.title %><% } %>">
         </div>
         <div class="m-0 row d-flex-justify-content-center align-items-center input-group mb-3">
           <label class="col-12 col-md-2 form-label fw-bold">Description</label>
           <textarea class="col-12 col-md-10 form-control" name="description"><% if (typeof(event) !== "undefined") { %><%- event.description %><% } %></textarea>
         </div>
         <div class="m-0 row d-flex-justify-content-center align-items-center input-group mb-3">
-          <label class="col-12 col-md-2 form-label fw-bold">Event Picture</label>
-          <input class="col-12 col-md-10 form-control" type="file" name="eventPicture">
-        </div>
-        <div class="m-0 row d-flex-justify-content-center align-items-center input-group mb-3">
           <label class="col-12 col-md-2 form-label fw-bold">Realization</label>
           <input class="col-12 col-md-10 form-control" type="datetime-local" name="realization" value="<% if (typeof(event) !== "undefined") { %><%- event.realization %><% } %>">
+        </div>
+        <div class="m-0 row d-flex-justify-content-center align-items-center input-group mb-3">
+          <div class="col-12 col-md-2">
+            <label class="form-label fw-bold">Guests</label> <span id="btnAddGuest" class="btnAddGuest fs-5 fw-bold">+</span>
+          </div>
+          <div id="guestsBox" class="p-0 col-12 col-md-10">
+            <input class="form-control mb-2" type="text" name="guestUsernames" placeholder="Guest Username">
+          </div>
+        </div>
+        <div class="m-0 row d-flex-justify-content-center align-items-center input-group mb-3">
+          <label class="col-12 col-md-2 form-label fw-bold">Event Picture</label>
+          <input class="col-12 col-md-10 form-control" type="file" name="eventPicture">
         </div>
         <div class="m-0 row d-flex justify-content-center align-items-center">
           <input class="col-4 btn btn-dark" type="submit" value="Create Event">

@@ -76,6 +76,15 @@ class EventController {
       return res.render("createEvent", {event:eventData, errors:["A wild error has appeared!"]});
     }
 
+    const idEvent = eventSaved.data.id;
+    const {guestUsernames} = req.body;
+    for(let guestUsername of guestUsernames) {
+      const [guest] = await User.getByUsername(guestUsername);
+      if(guest && guest.id !== req.session.idUser) {
+        await Event.addGuest(idEvent, guest.id);
+      }
+    }
+
     if(!eventPicture) {
       return res.redirect(`/profile/${req.session.username}`);
     } else {

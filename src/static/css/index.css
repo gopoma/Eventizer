@@ -46,6 +46,14 @@
   color: #000;
 }
 
+.btnAddGuest {
+  color: steelblue;
+  cursor: pointer;
+}
+.btnAddGuest:hover {
+  color: darkblue;
+}
+
 .events {
   display: grid;
   gap: 1.2rem;

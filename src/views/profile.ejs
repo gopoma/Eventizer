@@ -8,7 +8,6 @@
               <img src="<%- user.profilePic %>"
                 alt="<%- user.username %>" class="img-fluid img-thumbnail mt-4 mb-2"
                 style="width: 150px; z-index: 1">
-              <% console.log(session.username); console.log(user.username); %>
               <% if (session.username === user.username) { %>
                 <a href="/profile/update-profile/<%- user.username %>" class="btn btn-outline-dark" data-mdb-ripple-color="dark"
                   style="z-index: 1;">
