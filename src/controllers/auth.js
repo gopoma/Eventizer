@@ -1,4 +1,5 @@
 const path = require("path");
+const bcrypt = require("bcrypt");
 const User = require("../models/User");
 class AuthController {
   getLoginView(req, res) {
@@ -19,7 +20,7 @@ class AuthController {
         errors: ["Unregistered user"]
       });
     }
-    if(userData[0].password !== credenciales.password) {
+    if(!(await bcrypt.compare(credenciales.password, userData[0].password))) {
       return res.render("login", {
         errors: ["Wrong credencials"]
       });

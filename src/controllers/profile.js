@@ -1,4 +1,6 @@
 const path = require("path");
+const bcrypt = require("bcrypt");
+const encrypt = require("../helpers/encrypt");
 const parseDateString = require("../helpers/parseDateString");
 const User = require("../models/User");
 const Event = require("../models/Event");
@@ -59,7 +61,7 @@ class ProfileController {
     if(user.password !== user.passwordRepeated) {
       return res.render("updateProfile", {user:fallbackUser, errors:["Confirmation mismatched"]});
     }
-    if(user.oldPassword !== storedUserData.password) {
+    if(!(await bcrypt.compare(user.oldPassword, storedUserData.password))) {
       return res.render("updateProfile", {user:fallbackUser, errors:["Invalid current password"]});
     }
     if(!user.email.match(/^[0-9a-zA-Z]+(\.[a-zA-Z]+)*@[a-zA-Z]+(\.[a-zA-Z]+)*$/)) {
@@ -75,15 +77,16 @@ class ProfileController {
     }
 
     // Updating...
+    user.password = await encrypt(user.password);
     const result = await User.update(req.session.idUser, user);
     if(!result.success) {
       return res.render("updateProfile", {user:fallbackUser, errors:result.errors});
     }
     if(!profilePic) {
-      return res.redirect("/auth/login");
+      return res.redirect("/auth/logout");
     }
     profilePic.mv(path.join(__dirname, "..", "static", "tmp", "img", "users", `${user.username}.${fileExtension}`), async error => {
-      return res.redirect("/auth/login");
+      return res.redirect("/auth/logout");
     });
   }
 }

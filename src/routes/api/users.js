@@ -9,7 +9,7 @@ function usersAPI(app) {
     const [user] = await User.getByUsername(req.params.username);
 
     if(!user) {
-      return res.status(404).json({message:"User Not Found o.O"});
+      return res.status(404).json({error:true, message:"User Not Found o.O"});
     }
 
     const userWithNoSensitiveData = {

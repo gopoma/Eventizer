@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const userForm = document.querySelector("#userForm");
   const searchBox = document.querySelector("#searchBox");
 
-  userForm.addEventListener("submit", evt => {
+  userForm?.addEventListener("submit", evt => {
     evt.preventDefault();
     const username = userForm["username"].value;
 
@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
     .then(response => response.json())
     .then(user => {
       document.querySelectorAll(".searchResult").forEach(searchResult => {searchBox.removeChild(searchResult);});
+      if(user.error) { return; }
       const searchResult = document.createElement("a");
       searchResult.href = `/profile/${user.username}`;
       searchResult.classList.add("searchResult");

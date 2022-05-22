@@ -1,3 +1,4 @@
+const encrypt = require("../helpers/encrypt");
 const { query, insert, update } = require("../libs/database");
 
 class User {
@@ -38,7 +39,7 @@ class User {
       email: this.email,
       birthday: this.birthday,
       profilePic: this.profilePic,
-      password: this.password
+      password: await encrypt(this.password)
     });
 
     this.idUser = newUser?.data?.id;
