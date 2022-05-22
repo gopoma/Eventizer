@@ -60,13 +60,12 @@ class User {
   }
 
   static async update(id, data) {
-    try {
-      const possibleFields = ["name", "username", "email", "birthday", "profilePic", "password"];
-      await update("users", possibleFields, data, id);
-      return {success:true};
-    } catch(error) {
-      console.log(error);
-      return {success:false, errors:[error]};
+    const possibleFields = ["name", "username", "email", "birthday", "profilePic", "password"];
+    const result = await update("users", possibleFields, data, id);
+    
+    return {
+      success: result.success,
+      errors: [result.message]
     }
   }
 }

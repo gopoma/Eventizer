@@ -15,7 +15,7 @@
       <%- include("./components/authError") %>
       <h3>Personal info</h3>
 
-      <form class="form-horizontal" role="form" action="/profile/update-profile/<%- user.username %>" method="POST" enctype="multipart/form-data">
+      <form class="form-horizontal" role="form" action="/profile/update-profile/<%- session.username %>" method="POST" enctype="multipart/form-data">
         <div class="form-group mb-2">
           <label class="col-lg-3 control-label">Name:</label>
           <div class="col-lg-8">

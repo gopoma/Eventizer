@@ -14,7 +14,7 @@ const query = function(sql, data) {
   return new Promise((resolve, reject) => {
     connection.query(sql, data, (error, result) => {
       if(error) {
-        console.log(error);
+        console.log("ඞ"); 
         switch(error.errno) {
           case 1062:
             const match = error.sqlMessage.match(/^.+'(.+)'.+'.+\.(.+)_.+'$/);
@@ -56,10 +56,9 @@ async function update(tableName, possibleFields, data, id) {
       message: "OK"
     }
   } catch(error) {
-    console.log(error);
     return {
       success: false,
-      message: error.sqlMessage
+      message: error
     }
   }
 }

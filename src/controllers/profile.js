@@ -82,6 +82,7 @@ class ProfileController {
     if(!result.success) {
       return res.render("updateProfile", {user:fallbackUser, errors:result.errors});
     }
+
     if(!profilePic) {
       return res.redirect("/auth/logout");
     }
