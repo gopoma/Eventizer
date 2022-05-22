@@ -5,11 +5,27 @@
       <article class="p-4 border border-4 border-dark">
         <h2 class="text-center fw-bold">Event</h2>
         <div class="d-flex justify-content-center align-items-center">
-          <img src="<%- event.eventPicture %>" alt="<%- event.title %>" class="img-fluid img-thumbnail mt-4 mb-2" style="width:45%;height:45%;">
+          <img src="<%- event.eventPicture %>" alt="<%- event.title %>" class="img-fluid img-thumbnail mt-4 mb-2" style="width:20em">
         </div>
         <h3 class="py-2 text-center fw-bold"><%- event.title %></h3>
         <p title="description"><span class="fw-bold">Description:</span> <%- event.description %></p>
         <p title="realization"><span class="fw-bold">When :v?:</span> <%- event.date.day %>, <%- event.date.date %> de <%- event.date.month %>, <%- event.date.hour %>:<%- event.date.minute %>hrs.</p>
+        <div class="row">
+          <div class="col-12 col-md-2 fw-bold">Guests:</div>
+          <div class="col-12 col-md-10">
+            <ul>
+              <% guests.forEach(guest => { %>
+                <li>
+                  <span><%- guest.name %></span>
+                  <a href="/profile/<%- guest.username %>"><%- guest.username %></a>
+                  <% if(session.idUser === guest.idGuest) { %>
+                    <span class="fw-bold">(you c:)</span>
+                  <% } %>
+                </li>
+              <% }) %>
+            </ul>
+          </div>
+        </div>
         <div>
           <% if (canEnlist) { %>
             <a href="/events/<%- event.id %>/addGuest" class="btn btn-dark">Enlist</a>
@@ -21,11 +37,14 @@
       <aside class="w-50 p-4 border border-4 border-dark bg-light">
         <h4 class="text-center fw-bold">Host</h4>
         <div class="d-flex justify-content-center align-items-center">
-          <img src="<%- host.profilePic %>" alt="<%- host.username %>" class="img-fluid img-thumbnail" style="width:45%;height:45%;">
+          <img src="<%- host.profilePic %>" alt="<%- host.username %>" class="img-fluid img-thumbnail" style="width:12em;height:12em;">
         </div>
         <div class="d-flex flex-column align-items-center">
           <p class="m-0 text-center fw-bold" title="name"><%- host.name %></p>
           <a href="/profile/<%- host.username %>" class="text-center fw-bold" title="username"><%- host.username %></a>
+          <% if(session.idUser === host.id) { %>
+            <span class="fw-bold">(you c:)</span>
+          <% } %>
         </div>
       </aside>
     </div>

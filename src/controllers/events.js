@@ -40,7 +40,15 @@ class EventController {
     const enlistData = guests.filter(guest => guest.idGuest === req.session.idUser);
     const canEnlist = enlistData.length === 0 && event.idHost !== req.session.idUser;
 
-    return res.render("event", {event:{...event, date:parseDateString(event.realization)}, host, canEnlist});
+    return res.render("event", {
+      event: {
+        ...event, 
+        date:parseDateString(event.realization)
+      }, 
+      host, 
+      canEnlist,
+      guests
+    });
   }
   
   getCreateEventView(req, res) {
