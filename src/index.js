@@ -11,6 +11,7 @@ const session = require("express-session");
 const auth = require("./routes/auth");
 const profile = require("./routes/profile");
 const events = require("./routes/events");
+const usersAPI = require("./routes/api/users");
 // Importando middlewares
 const addSessionToTemplate = require("./middleware/addSessionToTemplate");
 
@@ -51,6 +52,7 @@ app.get("/", (req, res) => {
 auth(app);
 profile(app);
 events(app);
+usersAPI(app);
 
 app.get("/notAllowed", (req, res) => { return res.render("notAllowed") });
 app.all("*", (req, res) => { return res.render("notFound"); });
