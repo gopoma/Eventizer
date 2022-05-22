@@ -1,4 +1,5 @@
 const path = require("path");
+const {DateTime} = require("luxon");
 const Event = require("../models/Event");
 const User = require("../models/User");
 const parseDateString = require("../helpers/parseDateString");
@@ -102,6 +103,9 @@ class EventController {
       return res.redirect("/notAllowed");
     }
 
+    const realizationData = DateTime.fromJSDate(new Date(event.realization)).toISO().toString();
+    const realization = realizationData.split(".")[0];
+    event.realization = realization;
     return res.render("updateEvent", {event});
   }
 
