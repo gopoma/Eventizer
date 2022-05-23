@@ -78,3 +78,64 @@ The project was centered in Validation and Date and File Processing.
 * Your email has to be valid.
 * You could send an image as a file too, but it is not required.
 * Password Encryptation.
+* Once updated, you are automatically logged out.
+
+## Events
+**Description:** You have to have a session to access this section.
+
+`GET /events`
+
+**Description:** Renders all Events taking into consideration this data for each event.
+
+```javascript
+return {
+  ...event,
+  date: parseDateString(event.realization),
+  isHost: req.session.idUser === event.idHost,
+  isEnlisted: guestData.length !== 0,
+  host: {
+    id: event.idHost,
+    name: event.name,
+    username: event.username,
+    email: event.email,
+    profilePic: event.profilePic
+  }
+}
+```
+
+`GET /events/view-details/:idEvent`
+
+**Description:** Renders a single Event and in there you could Enlist you in that Event.
+
+`GET /events/create-event`
+
+**Description:** Renders the Create Event Form.
+
+`POST /events/create-event`
+
+* The Host is assigned taking into consideration your current session.
+* You have to enter at least title, description and realization.
+* You could add an image as a file, but it is not required.
+* You could add guests dinamically, there is validation backwards.
+
+`GET /events/:idEvent/addGuest`
+
+**Description:** With the session and the idEvent param enlists you in an single Event.
+
+`GET /events/update-event/:idEvent`
+
+**Description:** Searchs the Event and validates if the idHost matchs with the current idUser from session and renders the Update Event View filled with the current Event data, else renders 403 and 404 if the Event ins't found.
+
+`POST /events/update-event/:idEvent`
+
+* You have to provide title, description and realization at least.
+* You could change the image and submit another one, but it is not required.
+* A better implementation could be with the idUser session data.
+
+`GET /events/delete-event/:idEvent`
+
+**Description:** Searchs for the Event and validates that the idHost is equal to the idUser session data and renders the confirmation for deleting the event and the cancel button, else renders 403 or 404 if it isn't exists.
+
+`POST /events/delete-event/:idEvent`
+
+**Description:** Verifies that the Host is deleting his/her event and deletes.
